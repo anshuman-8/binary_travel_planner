@@ -1,7 +1,7 @@
 class BinaryTree {
   final BinaryNode root;
   BinaryTree(this.root);
-  static List 
+  // static List 
 }
 
 class BinaryNode {
@@ -11,3 +11,4 @@ class BinaryNode {
 
   BinaryNode(this.left, this.right, this.data);
 }
+

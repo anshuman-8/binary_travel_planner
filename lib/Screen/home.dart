@@ -48,7 +48,7 @@ class HomePage extends StatelessWidget {
             ),
           );
         });
-    TravelPlannerPage("sdf");
+    // TravelPlannerPage("sdf");
   }
 
   @override
@@ -59,15 +59,28 @@ class HomePage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  // primary: Colors.purple,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                  textStyle: const TextStyle(
+                      fontSize: 23, fontWeight: FontWeight.w500)),
               onPressed: () {
                 createBinaryPlan(context);
               },
               child: const Text("Make Binary Travel Plan")),
           SizedBox(
-            width: 23,
+            width: 30,
           ),
           ElevatedButton(
-              onPressed: () {}, child: const Text("Choose a travel plan"))
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                  // primary: Colors.purple,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                  textStyle: const TextStyle(
+                      fontSize: 23, fontWeight: FontWeight.w500)),
+              child: const Text("Choose a travel plan"))
         ],
       ),
     ));
