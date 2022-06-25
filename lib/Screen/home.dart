@@ -1,8 +1,18 @@
+import 'package:binary_travel_planner/Model/binary_tree.dart';
 import 'package:binary_travel_planner/Screen/travel_planner.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
+
+  void newTrip(BuildContext ctx, String title) {
+    BinaryNode node = BinaryNode(null, null, title,50 );
+    BinaryTree bn = BinaryTree(node, title);
+    Navigator.push(
+      ctx,
+      MaterialPageRoute(builder: (context) => TravelPlannerPage(title)),
+    );
+  }
 
   void createBinaryPlan(BuildContext ctx) {
     TextEditingController title = TextEditingController();
@@ -33,12 +43,12 @@ class HomePage extends StatelessWidget {
                         Navigator.of(ctx).pop();
                         print(title.text);
                         title.text != ""
-                            ? Navigator.push(
+                            ? (Navigator.push(
                                 ctx,
                                 MaterialPageRoute(
                                     builder: (context) =>
                                         TravelPlannerPage(title.text)),
-                              )
+                              ))
                             : null;
                       },
                       icon: Icon(Icons.navigate_next_outlined),
