@@ -5,47 +5,74 @@ import '../Widgets/branch_adder.dart';
 
 class TravelPlannerPage extends StatefulWidget {
   final String title;
-  TravelPlannerPage(this.title);
+  final BinaryNode root;
+  TravelPlannerPage(this.title, this.root);
 
   @override
   State<TravelPlannerPage> createState() => _TravelPlannerPageState();
 }
 
 class _TravelPlannerPageState extends State<TravelPlannerPage> {
-  List<String> askChildren() {
-    var ar = new List.filled(2, "", growable: false);
-    String l = "";
-    String r = "";
-    BranchAdder(widget.title, l, r);
-    return ar;
+  // List<String> askChildren() {
+  //   var ar = new List.filled(2, "", growable: false);
+  //   String l = "";
+  //   String r = "";
+  //   BranchAdder(widget.title, l, r);
+  //   return ar;
+  // }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    tree.add([widget.root]);
   }
 
   static List<List<BinaryNode>> tree = [];
 
   Widget levelBuilder(List<BinaryNode> li) {
+    //this is for making list for lvl UI display
     List<Widget> wl = [];
     li.forEach(((element) {
-      wl.add(Container(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Card(
-              elevation: 7,
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: Text(
-                  element.data,
-                  style: TextStyle(fontSize: 20),
-                ),
-              ),
-            )
-          ],
+      wl.add(Card(
+        elevation: 7,
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Text(
+            element.data,
+            style: TextStyle(fontSize: 20),
+          ),
         ),
       ));
     }));
-    return ListView(
-      children: [...wl],
+    // List<Widget> wli = [];
+    // wl.forEach
+    return Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [...wl],
+      ),
     );
+  }
+
+  void addLevel(List<BinaryNode> oldList) {
+    // used for adding a new row list
+    List<BinaryNode> li = [];
+    oldList.forEach((element) {
+      branchAdder(context, element);
+      li.add(element.left!);
+      li.add(element.right!);
+    });
+
+    setState(() {
+      tree.add(li);
+    });
+    tree.forEach((element) {
+      element.forEach((element1) {
+        print(element1.data);
+        print("--------------");
+      });
+    });
   }
 
   @override
@@ -67,7 +94,7 @@ class _TravelPlannerPageState extends State<TravelPlannerPage> {
                             horizontal: 50, vertical: 20),
                         textStyle: const TextStyle(
                             fontSize: 18, fontWeight: FontWeight.w500)),
-                    onPressed: () {},
+                    onPressed: () => addLevel(tree[tree.length - 1]),
                     icon: Icon(Icons.playlist_add),
                     label: Text("Add Level")),
               ),
@@ -76,16 +103,16 @@ class _TravelPlannerPageState extends State<TravelPlannerPage> {
                 indent: 130,
                 endIndent: 130,
               ),
-              Card(
-                elevation: 7,
-                child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Text(
-                    widget.title,
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ),
-              ),
+              // Card(
+              //   elevation: 7,
+              //   child: Padding(
+              //     padding: const EdgeInsets.all(10),
+              //     child: Text(
+              //       widget.title,
+              //       style: TextStyle(fontSize: 20),
+              //     ),
+              //   ),
+              // ),
               Container(
                 height: 430,
                 child: ListView.builder(
@@ -95,7 +122,7 @@ class _TravelPlannerPageState extends State<TravelPlannerPage> {
                   },
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 25,
               ),
               Text("Add more levels by clicking 'Add Level' on top")
@@ -105,4 +132,70 @@ class _TravelPlannerPageState extends State<TravelPlannerPage> {
       ),
     );
   }
+}
+
+void branchAdder(BuildContext context, BinaryNode node) async {
+  TextEditingController leftCtrl = TextEditingController();
+  TextEditingController rightCtrl = TextEditingController();
+  await showDialog(
+      context: context,
+      builder: (ctx) {
+        return Container(
+          child: AlertDialog(
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10.0))),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(node.data),
+                Padding(
+                  padding: EdgeInsets.all(8),
+                  child: TextField(
+                    controller: leftCtrl,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Option 1 for ${node.data}',
+                      hintText: 'eg. Munnar',
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(8),
+                  child: TextField(
+                    controller: rightCtrl,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Option 2 for ${node.data}',
+                      hintText: 'eg. Goa',
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(9),
+                  child: ElevatedButton.icon(
+                      onPressed: () {
+                        if (leftCtrl.text.trim() != "" ||
+                            rightCtrl.text.trim() != "") {
+                          // leftS = left.text;
+                          // rightS = right.text;
+                          BinaryNode l = BinaryNode(
+                              null, null, "${leftCtrl.text.trim()}", 23);
+                          BinaryNode r = BinaryNode(
+                              null, null, "${rightCtrl.text.trim()}", 28);
+                          node.left = l;
+                          node.right = r;
+                          print(leftCtrl.text + " - " + rightCtrl.text);
+                        }
+                        ;
+                        Navigator.pop(context);
+                        return;
+                      },
+                      icon: Icon(Icons.navigate_next_outlined),
+                      label: Text("Add")),
+                )
+              ],
+            ),
+          ),
+        );
+      });
 }

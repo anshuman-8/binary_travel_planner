@@ -14,8 +14,8 @@ class BinaryTree {
 }
 
 class BinaryNode {
-  final BinaryNode? left;
-  final BinaryNode? right;
+  BinaryNode? left;
+  BinaryNode? right;
   final int position;
   final String data;
 

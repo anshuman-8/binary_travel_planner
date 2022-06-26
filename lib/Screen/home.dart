@@ -6,11 +6,11 @@ class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
   void newTrip(BuildContext ctx, String title) {
-    BinaryNode node = BinaryNode(null, null, title,50 );
+    BinaryNode node = BinaryNode(null, null, title, 50);
     BinaryTree bn = BinaryTree(node, title);
     Navigator.push(
       ctx,
-      MaterialPageRoute(builder: (context) => TravelPlannerPage(title)),
+      MaterialPageRoute(builder: (context) => TravelPlannerPage(title, node)),
     );
   }
 
@@ -42,14 +42,7 @@ class HomePage extends StatelessWidget {
                       onPressed: () {
                         Navigator.of(ctx).pop();
                         print(title.text);
-                        title.text != ""
-                            ? (Navigator.push(
-                                ctx,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        TravelPlannerPage(title.text)),
-                              ))
-                            : null;
+                        title.text != "" ? (newTrip(ctx, title.text)) : null;
                       },
                       icon: Icon(Icons.navigate_next_outlined),
                       label: Text("Add")),
