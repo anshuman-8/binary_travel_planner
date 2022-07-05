@@ -1,4 +1,7 @@
+import 'package:binary_travel_planner/Model/binary_tree.dart';
+import 'package:binary_travel_planner/Screen/choose_plan.dart';
 import 'package:binary_travel_planner/Screen/home.dart';
+import 'package:binary_travel_planner/Screen/travel_planner.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -18,6 +21,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: HomePage(),
+      routes: {
+        '/choose-plan':(context) => ChoosePlan(),
+        // '/travel-planner':(context)=>TravelPlannerPage("", BinaryNode root),
+      },
     );
   }
 }

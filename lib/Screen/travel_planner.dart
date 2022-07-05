@@ -28,13 +28,16 @@ class _TravelPlannerPageState extends State<TravelPlannerPage> {
     tree.add([widget.root]);
   }
 
-  static List<List<BinaryNode>> tree = [];
+
+  List<List<BinaryNode>> tree = [];
+  // final BinaryNode asd = BinaryNode(null, null, " ", 3);
 
   Widget levelBuilder(List<BinaryNode> li) {
     //this is for making list for lvl UI display
     List<Widget> wl = [];
     li.forEach(((element) {
       wl.add(Card(
+        margin: EdgeInsets.symmetric(vertical: 20),
         elevation: 7,
         child: Padding(
           padding: const EdgeInsets.all(10),
@@ -55,24 +58,28 @@ class _TravelPlannerPageState extends State<TravelPlannerPage> {
     );
   }
 
-  void addLevel(List<BinaryNode> oldList) {
+  Future<void> addLevel(List<BinaryNode> oldList) async {
     // used for adding a new row list
     List<BinaryNode> li = [];
-    oldList.forEach((element) {
-      branchAdder(context, element);
-      li.add(element.left!);
-      li.add(element.right!);
-    });
+    for (var element in oldList) {
+      if (element.data.trim() != "") {
+        await branchAdder(context, element);
+        li.add(element.left!);
+        li.add(element.right!);
+        // li.add(asd);
+      }
+    }
 
     setState(() {
       tree.add(li);
     });
-    tree.forEach((element) {
-      element.forEach((element1) {
-        print(element1.data);
-        print("--------------");
-      });
-    });
+    // tree.forEach((element) {
+    //   element.forEach((element1) {
+    //     print(element1.data);
+    //     print("--------------");
+    //   });
+    // }
+    // );
   }
 
   @override
@@ -134,7 +141,7 @@ class _TravelPlannerPageState extends State<TravelPlannerPage> {
   }
 }
 
-void branchAdder(BuildContext context, BinaryNode node) async {
+Future<void> branchAdder(BuildContext context, BinaryNode node) async {
   TextEditingController leftCtrl = TextEditingController();
   TextEditingController rightCtrl = TextEditingController();
   await showDialog(
@@ -170,28 +177,40 @@ void branchAdder(BuildContext context, BinaryNode node) async {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.all(9),
-                  child: ElevatedButton.icon(
-                      onPressed: () {
-                        if (leftCtrl.text.trim() != "" ||
-                            rightCtrl.text.trim() != "") {
-                          // leftS = left.text;
-                          // rightS = right.text;
-                          BinaryNode l = BinaryNode(
-                              null, null, "${leftCtrl.text.trim()}", 23);
-                          BinaryNode r = BinaryNode(
-                              null, null, "${rightCtrl.text.trim()}", 28);
-                          node.left = l;
-                          node.right = r;
-                          print(leftCtrl.text + " - " + rightCtrl.text);
-                        }
-                        ;
-                        Navigator.pop(context);
-                        return;
-                      },
-                      icon: Icon(Icons.navigate_next_outlined),
-                      label: Text("Add")),
+                Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(9),
+                      child: ElevatedButton.icon(
+                          onPressed: () {
+                            if (leftCtrl.text.trim() != "" ||
+                                rightCtrl.text.trim() != "") {
+                              // leftS = left.text;
+                              // rightS = right.text;
+                              BinaryNode l = BinaryNode(
+                                  null, null, "${leftCtrl.text.trim()}", 23);
+                              BinaryNode r = BinaryNode(
+                                  null, null, "${rightCtrl.text.trim()}", 28);
+                              node.left = l;
+                              node.right = r;
+                              print(leftCtrl.text + " - " + rightCtrl.text);
+                            }
+                            ;
+                            Navigator.pop(context);
+                            return;
+                          },
+                          icon: Icon(Icons.navigate_next_outlined),
+                          label: Text("Add")),
+                    ),
+                    Padding(
+                        padding: EdgeInsets.all(9),
+                        child: ElevatedButton.icon(
+                            icon: Icon(Icons.close),
+                            onPressed: () {
+                              Navigator.of(context).popUntil((route) => false);
+                            },
+                            label: Text("Cancel")))
+                  ],
                 )
               ],
             ),

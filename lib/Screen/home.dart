@@ -1,4 +1,5 @@
 import 'package:binary_travel_planner/Model/binary_tree.dart';
+import 'package:binary_travel_planner/Screen/choose_plan.dart';
 import 'package:binary_travel_planner/Screen/travel_planner.dart';
 import 'package:flutter/material.dart';
 
@@ -20,13 +21,13 @@ class HomePage extends StatelessWidget {
         context: ctx,
         builder: (ctx) {
           return AlertDialog(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10.0))),
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(const Radius.circular(10.0))),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Padding(
-                  padding: EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(8),
                   child: TextField(
                     controller: title,
                     decoration: const InputDecoration(
@@ -37,15 +38,15 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.all(9),
+                  padding: const EdgeInsets.all(9),
                   child: ElevatedButton.icon(
                       onPressed: () {
                         Navigator.of(ctx).pop();
                         print(title.text);
                         title.text != "" ? (newTrip(ctx, title.text)) : null;
                       },
-                      icon: Icon(Icons.navigate_next_outlined),
-                      label: Text("Add")),
+                      icon: const Icon(Icons.navigate_next_outlined),
+                      label: const Text("Add")),
                 )
               ],
             ),
@@ -72,11 +73,18 @@ class HomePage extends StatelessWidget {
                 createBinaryPlan(context);
               },
               child: const Text("Make Binary Travel Plan")),
-          SizedBox(
+          const SizedBox(
             width: 30,
           ),
           ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                BinaryTree.tripList.length == 0
+                    ? null
+                    : Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: ((context) => ChoosePlan())));
+              },
               style: ElevatedButton.styleFrom(
                   // primary: Colors.purple,
                   padding:
