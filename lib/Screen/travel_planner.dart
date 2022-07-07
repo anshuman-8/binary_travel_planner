@@ -28,7 +28,6 @@ class _TravelPlannerPageState extends State<TravelPlannerPage> {
     tree.add([widget.root]);
   }
 
-
   List<List<BinaryNode>> tree = [];
   // final BinaryNode asd = BinaryNode(null, null, " ", 3);
 
@@ -207,7 +206,7 @@ Future<void> branchAdder(BuildContext context, BinaryNode node) async {
                         child: ElevatedButton.icon(
                             icon: Icon(Icons.close),
                             onPressed: () {
-                              Navigator.of(context).popUntil((route) => false);
+                              Navigator.of(context).pop();
                             },
                             label: Text("Cancel")))
                   ],
