@@ -11,15 +11,23 @@ class LinkedListBlock extends StatelessWidget {
       child: Row(
         children: [
           Card(
+            color: Colors.yellow[700],
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text("$title"),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 9.0, horizontal: 13),
+              child: Text(
+                title,
+                style: TextStyle(fontSize: 20),
+              ),
             ),
           ),
           SizedBox(
             width: 10,
           ),
-          Icon(Icons.arrow_forward_outlined),
+          Icon(
+            Icons.arrow_forward_outlined,
+            size: 20,
+          ),
           SizedBox(
             width: 10,
           )

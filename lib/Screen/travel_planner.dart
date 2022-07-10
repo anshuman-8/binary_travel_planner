@@ -1,8 +1,6 @@
 import 'package:binary_travel_planner/Model/binary_tree.dart';
 import 'package:flutter/material.dart';
 
-import '../Widgets/branch_adder.dart';
-
 class TravelPlannerPage extends StatefulWidget {
   final String title;
   final BinaryNode root;
@@ -36,6 +34,7 @@ class _TravelPlannerPageState extends State<TravelPlannerPage> {
     List<Widget> wl = [];
     li.forEach(((element) {
       wl.add(Card(
+        color: Colors.yellow[600],
         margin: EdgeInsets.symmetric(vertical: 20),
         elevation: 7,
         child: Padding(
