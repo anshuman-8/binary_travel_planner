@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage> {
                     controller: title,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'Trip Title',
+                      labelText: 'Trip Theme',
                       hintText: 'eg. Towards Nature ',
                     ),
                   ),
@@ -74,9 +74,9 @@ class _HomePageState extends State<HomePage> {
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                   colors: [
-                Color.fromARGB(255, 18, 101, 70),
-                Color.fromARGB(255, 28, 67, 70),
-                Color.fromARGB(255, 7, 41, 69),
+                Color.fromARGB(255, 18, 113, 78),
+                Color.fromARGB(255, 26, 66, 69),
+                Color.fromARGB(255, 7, 45, 75),
                 // Color.fromARGB(255, 28, 67, 70),
                 // Color.fromARGB(255, 18, 101, 70)
               ]
@@ -97,15 +97,19 @@ class _HomePageState extends State<HomePage> {
                 //     decoration: BoxDecoration(
                 //         image: DecorationImage(
                 //             image: Image.network(
-                //                     "https://spng.subpng.com/20190419/xif/kisspng-vector-graphics-computer-icons-illustration-portab-icono-imagen-avion-png-www-imagenesmy-com-5cb9d6bf7f0b19.2585224415556830075204.jpg")
+                //                     "")
                 //                 .image))),
                 const SizedBox(
                   height: 30,
                 ),
                 ElevatedButton(
                     onPressed: () {
+                      const snackBar = SnackBar(
+                        content: Text(
+                            'No Trips Avalable !  Create one at "Make Binary Travel Plan"'),
+                      );
                       BinaryTree.tripList.isEmpty
-                          ? null
+                          ? ScaffoldMessenger.of(context).showSnackBar(snackBar)
                           : Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -113,7 +117,7 @@ class _HomePageState extends State<HomePage> {
                     },
                     style: ElevatedButton.styleFrom(
                         primary: Colors.orange[800],
-                        elevation: 10,
+                        elevation: 19,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),
                         // primary: Colors.purple,
@@ -131,6 +135,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
+                      elevation: 14,
                       primary: Colors.orange[800],
                       padding: const EdgeInsets.symmetric(
                           horizontal: 50, vertical: 20),

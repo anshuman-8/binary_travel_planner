@@ -1,4 +1,3 @@
-
 import 'package:binary_travel_planner/Model/linkedList.dart';
 import 'package:binary_travel_planner/Widgets/linked_list_block.dart';
 import 'package:flutter/material.dart';
@@ -65,6 +64,7 @@ class _ChoosePlanState extends State<ChoosePlan> {
       li.add(n);
       curNode = _curnode as BinaryNode;
     }
+    await finalChoose(curNode);
   }
 
   @override
@@ -124,9 +124,11 @@ class _ChoosePlanState extends State<ChoosePlan> {
               shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10.0))),
               content: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 1),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
                     child: ElevatedButton(
                       onPressed: () {
                         setState(() {
@@ -136,14 +138,18 @@ class _ChoosePlanState extends State<ChoosePlan> {
                         Navigator.of(context).pop();
                         return;
                       },
-                      child: Text(node.left!.data),
+                      child: Text(
+                        node.left!.data,
+                        style: TextStyle(fontSize: 25),
+                      ),
                     ),
                   ),
                   const SizedBox(
                     width: 10,
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 1),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
                     child: ElevatedButton(
                       onPressed: () {
                         setState(() {
@@ -152,11 +158,42 @@ class _ChoosePlanState extends State<ChoosePlan> {
                         Navigator.of(context).pop();
                         return;
                       },
-                      child: Text(node.right!.data),
+                      child: Text(
+                        node.right!.data,
+                        style: TextStyle(fontSize: 25),
+                      ),
                     ),
                   )
                 ],
               ));
+        });
+  }
+
+  Future<void> finalChoose(BinaryNode node) async {
+    await showDialog(
+        context: context,
+        builder: (ctx) {
+          return AlertDialog(
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10.0))),
+            content: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+              child: Text(
+                "Congratulations 🎊,Your next destination is ${node.data}",
+                style: const TextStyle(fontSize: 23),
+              ),
+            ),
+            actions: [
+              Center(
+                child: TextButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: const Text(
+                      "Yeah!",
+                      style: TextStyle(fontSize: 18),
+                    )),
+              )
+            ],
+          );
         });
   }
 }
@@ -249,7 +286,7 @@ class GridItem extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(0, 170, 0, 10),
                 child: Container(
                   height: 30,
-                  width: 190,
+                  width: 220,
                   decoration: const BoxDecoration(
                       gradient: LinearGradient(colors: [
                     Color.fromARGB(246, 198, 224, 240),
