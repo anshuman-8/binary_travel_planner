@@ -1,16 +1,19 @@
-# binary_travel_planner
+# Binary Destination Planner
 
-A new Flutter project.
+Having only two options is better than having 1000, binary destination planner helps you design and plan the destination track faster.
 
-## Getting Started
+**Make binary travel plan** is for admins and for those who want to help others plan their destinations, just make two options for each parent node(Just like Binary Tree).
 
-This project is a starting point for a Flutter application.
+In **Plan Your Journey** you can choose among the various themes available and select one option among the the two given, and we will lead you to your ideal destination.
 
-A few resources to get you started if this is your first Flutter project:
+### Dependency
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Flutter 3.0.3
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Usage
+
+1. `git clone git@github.com:anshuman-8/binary_travel_planner.git`
+  
+2. Run `flutter pub get` in terminal
+  
+3. Run `lib/main.dart`

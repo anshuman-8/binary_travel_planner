@@ -94,7 +94,7 @@ class _HomePageState extends State<HomePage> {
               children: [
                 // Container(
                 //     height: 150,
-                //     decoration: BoxDecoration(
+                //     decoration: BoxDecoration( 
                 //         image: DecorationImage(
                 //             image: Image.network(
                 //                     "")
@@ -113,7 +113,7 @@ class _HomePageState extends State<HomePage> {
                           : Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: ((context) => ChoosePlan())));
+                                  builder: ((context) => const ChoosePlan())));
                     },
                     style: ElevatedButton.styleFrom(
                         primary: Colors.orange[800],
